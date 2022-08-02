@@ -26,14 +26,14 @@ function App() {
 	};
 
 	const deleteUser = (id) => {
-		setUsers(users.filter((user) => user.id !== id));
-		// setUsers(
-		// 	users.filter((user) => {
-		// 		if (user.id !== id) {
-		// 			return user;
-		// 		}
-		// 	})
-		// );
+		// setUsers(users.filter((user) => user.id !== id));
+		setUsers(
+			users.filter((user) => {
+				if (user.id !== id) {
+					return user;
+				}
+			})
+		);
 	};
 	const EditUser = (id, newData) => {
 		setUsers(
