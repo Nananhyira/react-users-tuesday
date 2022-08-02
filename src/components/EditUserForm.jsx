@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 
-function AddUserForm(props) {
-	const [name, setName] = useState("");
-	const [gen, setGen] = useState("");
-	const [email, setEmail] = useState("");
+function EditUserForm(props) {
+	const [name, setName] = useState(props.userBio.name);
+	const [gen, setGen] = useState(props.userBio.gen);
+	const [email, setEmail] = useState(props.userBio.email);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// if (name === "" || gen === "" || email === "") {
-		// 	alert("Please fill all the fields");
-		// }
-
-		props.newUser({ name, gen, email });
+		props.editUser(props.userBio.id, { name, email, gen });
 
 		setName("");
 		setGen("");
@@ -63,4 +59,4 @@ function AddUserForm(props) {
 	);
 }
 
-export default AddUserForm;
+export default EditUserForm;

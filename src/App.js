@@ -6,12 +6,46 @@ import AddUserForm from "./components/AddUserForm";
 
 function App() {
 	const [users, setUsers] = useState([
-		{ name: "John", gen: 20, email: "john@example.com" },
-		{ name: "Jane", gen: 21, email: "jane@gmail .com" },
+		{
+			name: "John",
+			gen: 20,
+			email: "john@example.com",
+			id: "78478chukjchho3fw",
+		},
+		{
+			name: "Jane",
+			gen: 21,
+			email: "jane@gmail .com",
+			id: "hhheiuchieih939u494",
+		},
 	]);
 	const addNewUser = (user) => {
+		user.id = Math.random().toString();
 		setUsers([...users, user]);
+		console.log(user);
 	};
+
+	const deleteUser = (id) => {
+		setUsers(users.filter((user) => user.id !== id));
+		// setUsers(
+		// 	users.filter((user) => {
+		// 		if (user.id !== id) {
+		// 			return user;
+		// 		}
+		// 	})
+		// );
+	};
+	const EditUser = (id, newData) => {
+		setUsers(
+			users.map((user) => {
+				if (user.id === id) {
+					return newData;
+				}
+				return user;
+			})
+		);
+	};
+
 	return (
 		<Container style={{ marginTop: "30px" }}>
 			<Row>
@@ -19,7 +53,7 @@ function App() {
 					<AddUserForm newUser={addNewUser} />
 				</Col>
 				<Col>
-					<AllUsers userData={users} />
+					<AllUsers userData={users} editUser={EditUser} delete={deleteUser} />
 				</Col>
 			</Row>
 		</Container>

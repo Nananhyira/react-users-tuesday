@@ -6,8 +6,15 @@ function AllUsers(props) {
 	return (
 		<Container>
 			<Row>
-				{props.userData.map((item, index) => {
-					return <User key={index} userBio={item} />
+				{props.userData.map((item) => {
+					return (
+						<User
+							key={item.id}
+							userBio={item}
+							delete={props.delete}
+							editUser={props.editUser}
+						/>
+					);
 				})}
 			</Row>
 		</Container>
