@@ -15,7 +15,7 @@ let initialState = {
 	],
 };
 
-let UsersReducer = (state = initialState) => {
+let UsersReducer = (state = initialState,actions ) => {
 	return state;
 };
 
