@@ -1,19 +1,24 @@
 import React, { useState } from "react";
+import { v4 as uuid } from "uuid";
 import { Form, Button } from "react-bootstrap";
+import { connect, useDispatch } from "react-redux";
+import { AddNewUser } from "../actions/userActions";
 
 function AddUserForm(props) {
 	const [name, setName] = useState("");
 	const [gen, setGen] = useState("");
 	const [email, setEmail] = useState("");
+	const dispatch = useDispatch();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		// if (name === "" || gen === "" || email === "") {
 		// 	alert("Please fill all the fields");
 		// }
-
-		props.newUser({ name, gen, email });
-
+		let newUser = { name, gen, email, id: uuid() };
+		dispatch(AddNewUser(newUser));
+		// props.AddNewUser({ name, gen, email, id: uuid() });
+		console.log(newUser);
 		setName("");
 		setGen("");
 		setEmail("");
@@ -63,4 +68,8 @@ function AddUserForm(props) {
 	);
 }
 
+// const mapDispatch = {
+// 	AddNewUser: AddNewUser,
+// };
+// export default connect(null, mapDispatch)(AddUserForm);
 export default AddUserForm;
