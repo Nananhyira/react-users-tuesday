@@ -41,10 +41,10 @@ function App() {
 			})
 		);
 	};
-	const EditUser = (id, newData) => {
+	const EditUser = ( newData) => {
 		setUsers(
 			users.map((user) => {
-				if (user.id === id) {
+				if (user.id === newData.id) {
 					return newData;
 				}
 				return user;

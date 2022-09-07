@@ -11,7 +11,7 @@ function AllUsers(props) {
 	return (
 		<Container>
 			<Row>
-				{users.map((item) => {
+				{users.map((item, index) => {
 					return (
 						<User
 							key={item.id}

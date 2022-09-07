@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Card, Col, Button, Modal } from "react-bootstrap";
 import EditUserForm from "./EditUserForm";
+import { connect } from "react-redux";
+import { RemoveUser } from "../actions/userActions";
 
 function User(props) {
 	const [show, setShow] = useState(false);
@@ -9,7 +11,8 @@ function User(props) {
 
 	const hadleDelete = (e) => {
 		e.preventDefault();
-		props.delete(props.userBio.id);
+		//props.delete(props.userBio.id);
+		props.RemoveUser(props.userBio.id);
 	};
 	return (
 		<>
@@ -41,5 +44,7 @@ function User(props) {
 		</>
 	);
 }
-
-export default User;
+const mapDispatch = {
+	RemoveUser,
+};
+export default connect(null, mapDispatch)(User);
