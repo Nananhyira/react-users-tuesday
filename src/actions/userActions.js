@@ -5,3 +5,15 @@ export const AddNewUser =(newUser)=>{
   }
 
 }
+ export const deleteUser=(id)=>{
+  return{
+    type:"DELETE_USER",
+   payload:id
+  }
+ }
+ export const editUser=(data)=>{
+  return {
+    type:"EDIT_USER",
+    payload:{data}
+  }
+ }
