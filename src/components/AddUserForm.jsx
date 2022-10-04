@@ -3,6 +3,14 @@ import { v4 as uuid } from "uuid";
 import { Form, Button } from "react-bootstrap";
 import { connect, useDispatch } from "react-redux";
 import { AddNewUser } from "../actions/userActions";
+import {
+	doc,
+	setDoc,
+	collection,
+	addDoc,
+	serverTimestamp,
+} from "firebase/firestore";
+import { db } from "../firebase/config";
 
 function AddUserForm(props) {
 	const [name, setName] = useState("");
@@ -10,15 +18,25 @@ function AddUserForm(props) {
 	const [email, setEmail] = useState("");
 	const dispatch = useDispatch();
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// if (name === "" || gen === "" || email === "") {
-		// 	alert("Please fill all the fields");
-		// }
-		let newUser = { name, gen, email, id: uuid() };
-		dispatch(AddNewUser(newUser));
+		let newUser = {
+			name,
+			gen,
+			email,
+			id: uuid(),
+			timestamp: serverTimestamp(),
+		};
+
+		try {
+			const docRef = await setDoc(doc(db, "users", newUser.id), newUser);
+		} catch (e) {
+			console.log(e);
+		}
+
+		// dispatch(AddNewUser(newUser));
 		// props.AddNewUser({ name, gen, email, id: uuid() });
-		console.log(newUser);
+		// console.log(newUser);
 		setName("");
 		setGen("");
 		setEmail("");
