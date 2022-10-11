@@ -3,6 +3,8 @@ import { Card, Col, Button, Modal } from "react-bootstrap";
 import EditUserForm from "./EditUserForm";
 import { connect, useDispatch } from "react-redux";
 import { deleteUser } from "../actions/userActions";
+import { doc, deleteDoc } from "firebase/firestore";
+import { db } from "../firebase/config";
 
 function User(props) {
 	const [show, setShow] = useState(false);
@@ -10,12 +12,17 @@ function User(props) {
 	const handleShow = () => setShow(true);
 	const dispatch = useDispatch();
 
-	const hadleDelete = (e) => {
+	const hadleDelete = async (e) => {
 		e.preventDefault();
 		//  dispatch(deleteUser(props.userBio.id));
 		// props.deleteUser(props.userBio.id);
 		// dispatch(deleteUser(props.userBio.id));
-		props.deleteUser(props.userBio.id);
+		// props.deleteUser(props.userBio.id);
+		try {
+			await deleteDoc(doc(db, "users", props.userBio.id));
+		} catch (e) {
+			console.log(e);
+		}
 	};
 	return (
 		<>
@@ -24,7 +31,11 @@ function User(props) {
 					<Modal.Title>Modal heading</Modal.Title>
 				</Modal.Header>
 				<Modal.Body>
-					<EditUserForm hide={handleClose} editUser={props.editUser} userBio={props.userBio} />
+					<EditUserForm
+						hide={handleClose}
+						editUser={props.editUser}
+						userBio={props.userBio}
+					/>
 				</Modal.Body>
 			</Modal>
 			<Col md={3} style={{ width: "12rem", marginBottom: "10px" }}>

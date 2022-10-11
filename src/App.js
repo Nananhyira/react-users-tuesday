@@ -13,7 +13,7 @@ function App() {
 
 	useEffect(() => {
 		const readData = async () => {
-			const q = query(collection(db, "users"), orderBy("timestamp", "asc"));
+			const q = query(collection(db, "users"), orderBy("timestamp", "desc"));
 			const unsubscribe = onSnapshot(q, (querySnapshot) => {
 				const usersArr = [];
 				querySnapshot.forEach((doc) => {
@@ -25,6 +25,21 @@ function App() {
 		};
 		readData();
 	}, []);
+
+	// useEffect(() => {
+	// 	const readData = async () => {
+	// 		const q = query(collection(db, "users"), orderBy("timestamp", "asc"));
+	// 		const unsubscribe = onSnapshot(q, (querySnapshot) => {
+	// 			const usersArr = [];
+	// 			querySnapshot.forEach((doc) => {
+	// 				usersArr.push(doc.data());
+	// 			});
+	// 			dispatch(AddNewUser(usersArr));
+	// 			console.log(usersArr);
+	// 		});
+	// 	};
+	// 	readData();
+	// }, []);
 
 	// const [users, setUsers] = useState([
 	// {

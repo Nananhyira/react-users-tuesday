@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import { editUser } from "../actions/userActions";
 import { connect, useDispatch } from "react-redux";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase/config";
 
 function EditUserForm(props) {
 	const [name, setName] = useState(props.userBio.name);
@@ -9,12 +11,19 @@ function EditUserForm(props) {
 	const [email, setEmail] = useState(props.userBio.email);
 	const dispatch = useDispatch();
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		let newInfo = { id: props.userBio.id, name, email, gen };
+		try {
+			const userRef = doc(db, "users", newInfo.id);
+			await updateDoc(userRef, newInfo);
+		} catch (e) {
+			console.log(e);
+		}
+
 		// props.editUser(props.userBio.id, { name, email, gen });
 		// props.editUser(newInfo);
-		dispatch(editUser(newInfo));
+		// dispatch(editUser(newInfo));
 		setName("");
 		setGen("");
 		setEmail("");
