@@ -7,6 +7,10 @@ import { collection, query, onSnapshot, orderBy } from "firebase/firestore";
 import { db } from "./firebase/config";
 import { AddNewUser } from "./actions/userActions";
 import { useDispatch } from "react-redux";
+import Routers from "./Routers";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./firebase/config";
+import { dispatchUser } from "./actions/authActions";
 
 function App() {
 	const dispatch = useDispatch();
@@ -24,6 +28,18 @@ function App() {
 			});
 		};
 		readData();
+	}, []);
+
+	// dispatch action to the authReducer
+	useEffect(() => {
+		auth.onAuthStateChanged((user) => {
+			if (user) {
+				dispatch(dispatchUser(user));
+			} else {
+				dispatch(dispatchUser(null));
+			}
+			console.log(user);
+		});
 	}, []);
 
 	// useEffect(() => {
@@ -90,7 +106,7 @@ function App() {
 
 	return (
 		<Container style={{ marginTop: "30px" }}>
-			<Row>
+			{/* <Row>
 				<Col>
 					<AddUserForm
 					// newUser={addNewUser}
@@ -101,7 +117,8 @@ function App() {
 					// userData={users} editUser={EditUser} delete={deleteUser}
 					/>
 				</Col>
-			</Row>
+			</Row> */}
+			<Routers />
 		</Container>
 	);
 }

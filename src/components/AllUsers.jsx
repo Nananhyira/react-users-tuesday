@@ -5,8 +5,8 @@ import { Row, Container } from "react-bootstrap";
 
 function AllUsers(props) {
 	// Create mapState function and return the state from the store
-	const { users } = useSelector((state) => {
-		return state;
+	const users  = useSelector((state) => {
+		return state.UsersReducer.users;
 	});
 	return (
 		<Container>
