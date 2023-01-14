@@ -3,21 +3,21 @@ import { connect, useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 function ProtectedRoute({ children, users }) {
-	// const user = useSelector((state) => {
-	// 	return state.authReducer.user;
-	// });
+	const user = useSelector((state) => {
+		return state.authReducer.users;
+	});
 
-	if (!users) {
+	if (!user) {
 		return <Navigate to="/login" replace="true" />;
 	}
 	return children;
 }
 
-const mapStateToProps = (state) => {
-	return {
-		users: state.authReducer.users,
-	};
-};
-export default connect(mapStateToProps)(ProtectedRoute);
+// const mapStateToProps = (state) => {
+// 	return {
+// 		users: state.authReducer.users,
+// 	};
+// };
+// export default connect(mapStateToProps)(ProtectedRoute);
 
-// export default ProtectedRoute;
+export default ProtectedRoute;
